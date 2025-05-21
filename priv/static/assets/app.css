@@ -1146,6 +1146,14 @@ select {
   grid-template-columns: repeat(1, minmax(0, 1fr));
 }
 
+.flex-row {
+  flex-direction: row;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
 .items-center {
   align-items: center;
 }
@@ -1287,6 +1295,11 @@ select {
   border-color: rgb(212 212 216 / var(--tw-border-opacity));
 }
 
+.bg-\[\#0d4e62\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(13 78 98 / var(--tw-bg-opacity));
+}
+
 .bg-brand\/5 {
   background-color: rgb(253 79 0 / 0.05);
 }
@@ -1306,11 +1319,6 @@ select {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
-.bg-zinc-100 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(244 244 245 / var(--tw-bg-opacity));
-}
-
 .bg-zinc-50 {
   --tw-bg-opacity: 1;
   background-color: rgb(250 250 250 / var(--tw-bg-opacity));
@@ -1318,11 +1326,6 @@ select {
 
 .bg-zinc-50\/90 {
   background-color: rgb(250 250 250 / 0.9);
-}
-
-.bg-zinc-900 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(24 24 27 / var(--tw-bg-opacity));
 }
 
 .fill-cyan-900 {
@@ -1387,11 +1390,6 @@ select {
   padding-bottom: 0.125rem;
 }
 
-.py-1 {
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
-}
-
 .py-10 {
   padding-top: 2.5rem;
   padding-bottom: 2.5rem;
@@ -1435,6 +1433,11 @@ select {
 
 .text-right {
   text-align: right;
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
 }
 
 .text-\[0\.8125rem\] {
@@ -1494,6 +1497,16 @@ select {
 
 .tracking-tighter {
   letter-spacing: -0.05em;
+}
+
+.text-\[\#0d4e62\] {
+  --tw-text-opacity: 1;
+  color: rgb(13 78 98 / var(--tw-text-opacity));
+}
+
+.text-\[\#a81616\] {
+  --tw-text-opacity: 1;
+  color: rgb(168 22 22 / var(--tw-text-opacity));
 }
 
 .text-brand {
@@ -1655,18 +1668,14 @@ select {
   cursor: pointer;
 }
 
-.hover\:bg-zinc-200\/80:hover {
-  background-color: rgb(228 228 231 / 0.8);
+.hover\:bg-\[\#a81616\]:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(168 22 22 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-zinc-50:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(250 250 250 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-zinc-700:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(63 63 70 / var(--tw-bg-opacity));
 }
 
 .hover\:text-zinc-700:hover {
