@@ -61,6 +61,54 @@ defmodule ServiceDeskWeb.UserSettingsLive do
       </div>
       <div>
         <.simple_form
+          for={@info_form}
+          id="info_form"
+          phx-submit="update_info"
+        >
+          <.input field={@info_form[:address_1]} type="text" label="address_1" />
+          <:actions>
+            <.button phx-disable-with="Changing...">Change info</.button>
+          </:actions>
+        </.simple_form>
+      </div>
+      <div>
+        <.simple_form
+          for={@info_form}
+          id="info_form"
+          phx-submit="update_info"
+        >
+          <.input field={@info_form[:address_2]} type="text" label="address_2" />
+          <:actions>
+            <.button phx-disable-with="Changing...">Change info</.button>
+          </:actions>
+        </.simple_form>
+      </div>
+      <div>
+        <.simple_form
+          for={@info_form}
+          id="info_form"
+          phx-submit="update_info"
+        >
+          <.input field={@info_form[:zip_code]} type="text" label="zip_code" />
+          <:actions>
+            <.button phx-disable-with="Changing...">Change info</.button>
+          </:actions>
+        </.simple_form>
+      </div>
+      <div>
+        <.simple_form
+          for={@info_form}
+          id="info_form"
+          phx-submit="update_info"
+        >
+          <.input field={@info_form[:city]} type="text" label="city" />
+          <:actions>
+            <.button phx-disable-with="Changing...">Change info</.button>
+          </:actions>
+        </.simple_form>
+      </div>
+      <div>
+        <.simple_form
           for={@email_form}
           id="email_form"
           phx-submit="update_email"
