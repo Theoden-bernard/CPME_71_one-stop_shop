@@ -10,6 +10,8 @@ defmodule ServiceDesk.Accounts.User do
     field :confirmed_at, :utc_datetime
     field :firstname, :string
     field :lastname, :string
+    field :gsm, :string
+    field :landline, :string
     timestamps(type: :utc_datetime)
   end
 
@@ -45,14 +47,8 @@ defmodule ServiceDesk.Accounts.User do
 
   def info_changeset(user, attrs) do
     user
-    |> cast(attrs, [:firstname])
-    |> validate_required([:firstname])
-  end
-
-  def info_changeset(user, attrs) do
-    user
-    |> cast(attrs, [:lastname])
-    |> validate_required([:lastname])
+    |> cast(attrs, [:firstname, :lastname, :gsm, :landline])
+    |> validate_required([:firstname, :lastname, :gsm, :landline])
   end
 
   defp validate_email(changeset, opts) do
