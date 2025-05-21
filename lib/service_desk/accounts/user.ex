@@ -52,7 +52,7 @@ defmodule ServiceDesk.Accounts.User do
   def info_changeset(user, attrs) do
     user
     |> cast(attrs, [:firstname, :lastname, :gsm, :landline, :address_1, :address_2, :zip_code, :city])
-    |> validate_required([:firstname, :lastname, :gsm, :landline, :address_1, :address_2, :zip_code, :city])
+    |> validate_required([:firstname, :lastname, :gsm, :landline, :address_1, :zip_code, :city])
   end
 
   defp validate_email(changeset, opts) do
