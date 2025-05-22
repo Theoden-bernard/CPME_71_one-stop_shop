@@ -6,8 +6,9 @@ defmodule ServiceDeskWeb.UserSettingsLive do
   def render(assigns) do
     ~H"""
     <.header class="text-center">
-      Account Settings
-      <:subtitle>Manage your account email address and password settings</:subtitle>
+      <div class="text-5xl text-[#0d4e62]">
+        Your company profile
+      </div>
     </.header>
 
     <div class="space-y-12 divide-y">

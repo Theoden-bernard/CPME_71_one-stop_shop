@@ -17,6 +17,7 @@ defmodule ServiceDesk.Accounts.User do
     field :zip_code, :string
     field :city, :string
     timestamps(type: :utc_datetime)
+    has_many :messages, ServiceDesk.Messages.Message
   end
 
   @doc """
