@@ -1,0 +1,11 @@
+<.header>
+    This is the organization list
+    <:subtitle> pouet </:subtitle>
+</.header>
+
+<.table 
+    id="organizations_list" 
+    rows={@organizations_list}
+    >
+    <:col :let={organization} label="id">{organization.name}</:col>
+</.table>

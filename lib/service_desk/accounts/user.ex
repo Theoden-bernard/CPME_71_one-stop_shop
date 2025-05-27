@@ -18,6 +18,7 @@ defmodule ServiceDesk.Accounts.User do
     field :city, :string
     timestamps(type: :utc_datetime)
     has_many :messages, ServiceDesk.Messages.Message
+    has_one :organization, ServiceDesk.Organizations.Organization
   end
 
   @doc """

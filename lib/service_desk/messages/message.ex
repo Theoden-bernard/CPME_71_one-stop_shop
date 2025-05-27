@@ -9,7 +9,7 @@ defmodule ServiceDesk.Messages.Message do
         belongs_to :user, ServiceDesk.Accounts.User
     end
 
-    def changeset(message, attrs) do
+    def changeset(message, attrs \\ %{}) do
         message
         |> cast(attrs, [:message])
         |> validate_required([:message])
