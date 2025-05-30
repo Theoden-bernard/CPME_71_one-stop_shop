@@ -70,6 +70,7 @@ defmodule ServiceDeskWeb.Router do
       live "/users/settings", UserSettingsLive, :edit
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
       live "/organization/index", Live.OrganizationLive.Index, :index
+      live "/organization/edit", Live.OrganizationLive.Edit, :edit
       live "/tag/index", Live.TagLive.Index, :index
       live "/zone/index", Live.ZoneLive.Index, :index
     end

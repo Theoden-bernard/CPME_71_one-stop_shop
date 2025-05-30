@@ -134,7 +134,6 @@ defmodule ServiceDesk.Accounts do
     |> Repo.update()
   end
 
-
   @doc """
   Updates the user email using the given token.
 

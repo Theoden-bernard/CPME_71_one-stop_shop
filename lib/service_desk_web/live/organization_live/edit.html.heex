@@ -1,0 +1,25 @@
+<.header>
+    Configurer votre entrerprise
+</.header>
+
+ <.simple_form
+    for={@form}
+    id="info_form"
+    phx-submit="create_info"
+    phx-submit="update_info"
+    >
+        
+    <.input field={@form[:name]} type="text" label="Name" />
+    <.input field={@form[:city]} type="text" label="City" />
+    <.input field={@form[:landline]} type="text" label="Landline" />
+    <.input field={@form[:address_1]} type="text" label="Address_1" />
+    <.input field={@form[:address_2]} type="text" label="Address_2" />
+    <.input field={@form[:zip_code]} type="text" label="Zip_code" />
+    <.input field={@form[:siren]} type="text" label="Siren" />
+    <.input field={@form[:siret]} type="text" label="Siret" />
+    
+      <:actions>
+        <.button phx-disable-with="Changing...">Sauvegarder</.button>
+      </:actions>
+
+  </.simple_form>
