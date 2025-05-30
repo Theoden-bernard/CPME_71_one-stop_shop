@@ -18,7 +18,7 @@ defmodule ServiceDeskWeb.Live.OrganizationLive.Edit do
             |> assign(:action, action)}
     end
 
-    def handle_event("update_info", _params, socket)when socket.assigns.action == :new do
+    def handle_event("create_info", _params, socket)when socket.assigns.action == :new do
         Organizations.create_organization(socket)
         {:noreply, socket}
     end
