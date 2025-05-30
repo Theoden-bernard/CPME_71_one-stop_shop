@@ -1,0 +1,31 @@
+<header class="px-4 sm:px-6 lg:px-8">
+  <div class="flex items-center justify-between border-b border-zinc-100 py-3 text-sm">
+    <div class="flex items-center gap-4">
+      <a href="/">
+        <div class="flex flex-row items-center">
+          <img class="scale-75" src={~p"/images/logo_small.png"} />
+          <div class="flex flex-col text-2xl">
+            <div class="text-[#0d4e62] text-5xl font-semibold">GUICHET UNIQUE</div>
+            <div class="text-[#a81616] text-5xl font-semibold">NUMERIQUE</div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</header>
+<main class="px-4 py-20 sm:px-6 lg:px-8">
+  <div class="mx-auto max-w-2xl">
+    <.flash_group flash={@flash} />
+    {@inner_content}
+  </div>
+</main>
+<footer class="flex justify-between items-center">
+  <div></div>
+  <div class="text-[#0d4e62]">about-contact</div>
+  <div class="flex flex-row">
+    <div class="text-[#0d4e62]">
+      proposed with simplicity and common sense by the
+    </div>
+    <img src={~p"/images/cpme71.png"} />
+  </div>
+</footer>
