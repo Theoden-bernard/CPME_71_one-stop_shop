@@ -3,7 +3,7 @@ defmodule ServiceDeskWeb.Live.OrganizationLive.Index do
     alias ServiceDesk.Organizations
 
     def mount(_, _, socket) do
-        organization_list = Organizations.list_organizations()
-        {:ok, assign(socket, :organizations_list, organization_list)}
+        organizations_list = Organizations.list_organizations()
+        {:ok, assign(socket, :organizations_list, organizations_list)}
     end
 end

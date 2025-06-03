@@ -14,8 +14,8 @@ defmodule ServiceDesk.Organizations do
     def create_organization(%{"user_id" => user_id} = attrs) when is_integer(user_id) and user_id > 0 do
         user_id
         |> Accounts.get_user!()
-        |> Ecto.build_assoc(:organization, attrs)
-        |> Organization.changeset()
+        |> Ecto.build_assoc(:organization)
+        |> Organization.changeset(attrs)
         |> Repo.insert()
     end
 

@@ -13,13 +13,13 @@ defmodule ServiceDesk.Organizations.Organization do
         field :siren, :string
         field :siret; :string
         belongs_to :user, ServiceDesk.Accounts.User
-        many_to_many :tags, ServiceDesk.Tags.Tag, join_through: :organizations_tags
-        many_to_many :zones, ServiceDesk.Zones.Zone, join_through: :organizations_zones
+        many_to_many :tags, ServiceDesk.Tags.Tag, join_through: "organizations_tags"
+        many_to_many :zones, ServiceDesk.Zones.Zone, join_through: "organizations_zones"
     end
 
     def changeset(organization, attrs \\ %{}) do
         organization
         |> cast(attrs, [:name, :email, :landline, :address_1, :address_2, :zip_code, :city, :siren, :siret])
-        |> validate_required([:name, :email, :landline, :address_1, :address_2, :zip_code, :city])
+        |> validate_required([:name, :email, :landline, :address_1, :zip_code, :city])
     end
 end

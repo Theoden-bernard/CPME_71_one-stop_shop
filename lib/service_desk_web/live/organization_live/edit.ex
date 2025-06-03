@@ -3,28 +3,44 @@ defmodule ServiceDeskWeb.Live.OrganizationLive.Edit do
     alias ServiceDesk.{Organizations, Repo}
 
     def mount(_, _, socket) do
-        {organization_changeset, action} =
+        {organization, action} =
             case socket.assigns.current_user
             |> Repo.preload(:organization)
             |> Map.get(:organization) do
-                nil -> {Organizations.Organization.changeset(%Organizations.Organization{}), :new}
-                organization -> {Organizations.Organization.changeset(organization), :edit}
+                nil -> {%Organizations.Organization{}, :new}
+                organization -> {organization, :edit}
             end
+
+        form = 
+            organization
+            |> Ecto.Changeset.change()
+            |> to_form()
 
         {:ok, 
             socket
-            |> assign(:form, to_form(organization_changeset))
-            |> assign(:changeset, organization_changeset)
+            |> assign(:form, form)
+            |> assign(:organization, organization)
             |> assign(:action, action)}
     end
 
-    def handle_event("create_info", _params, socket)when socket.assigns.action == :new do
-        Organizations.create_organization(socket)
-        {:noreply, socket}
+    def handle_event("save", %{"organization" => params}, socket) when socket.assigns.action == :new do
+        params = Map.put(params, "user_id", socket.assigns.current_user.id) 
+        case Organizations.create_organization(params) do
+            {:ok, _organization} -> 
+                {:noreply, put_flash(socket, :info, "Votre organisation a bien été créée")}
+
+            {:error, changeset} ->
+                {:noreply, assign(socket, :form, to_form(changeset))}
+        end
     end
 
-    def handle_event("update_info", params, socket)when socket.assigns.action == :edit do
-        Organizations.update_organization(params, socket)
-        {:noreply, socket}
+    def handle_event("save", %{"organization" => params}, socket) when socket.assigns.action == :edit do
+        case Organizations.update_organization(socket.assigns.organization, params) do
+            {:ok, _organization} -> 
+                {:noreply, put_flash(socket, :info, "Votre organisation a bien été modifiée")}
+
+            {:error, changeset} ->
+                {:noreply, assign(socket, :form, to_form(changeset))}
+        end
     end
 end
