@@ -1,4 +1,13 @@
 <.header>
-    This is the zone list
-    <:subtitle> pouet </:subtitle>
+    <div class="text-center text-5xl text-[#0d4e62]">
+        List des zones
+    </div>
+
 </.header>
+
+<.table 
+    id="zones_list" 
+    rows={@zones_list}
+    >
+    <:col :let={zones} label="Nom">{zones.name}</:col>
+</.table>

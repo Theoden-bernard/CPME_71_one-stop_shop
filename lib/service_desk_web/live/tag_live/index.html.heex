@@ -1,4 +1,13 @@
 <.header>
-    This is the tag list
-    <:subtitle> pouet </:subtitle>
+    <div class="text-center text-5xl text-[#0d4e62]">
+        List des tags
+    </div>
+
 </.header>
+
+<.table 
+    id="tags_list" 
+    rows={@tags_list}
+    >
+    <:col :let={tags} label="Nom">{tags.name}</:col>
+</.table>

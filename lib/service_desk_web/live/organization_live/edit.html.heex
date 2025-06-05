@@ -1,9 +1,7 @@
 <.header>
-    
-    <div class="text-[#0d4e62] text-5xl flex justify-center">
-      Ta fiche entreprise
-    </div>
-
+  <div class="text-[#0d4e62] text-5xl flex justify-center">
+    Ta fiche entreprise
+  </div>
 </.header>
 
 <%=@action%>
@@ -14,15 +12,15 @@
   phx-submit="save"
 >
   
-  <div class="flex flex-row">
+  <div class="flex flex-row w-full">
     <div class="w-2/3 mr-11">
       <.input field={@form[:name]} type="text" label="Name"/>
       <.input field={@form[:email]} type="text" label="Email"/>
-      <.input field={@form[:landline]} type="text" label="Landline"/>
+      <.input field={@form[:landline]} type="text" label="Téléphone"/>
       <.input field={@form[:address_1]} type="text" label="Address_1"/>
       <.input field={@form[:address_2]} type="text" label="Address_2"/>
-      <.input field={@form[:zip_code]} type="text" label="Zip_code"/>
-      <.input field={@form[:city]} type="text" label="City"/>
+      <.input field={@form[:zip_code]} type="text" label="Code postal"/>
+      <.input field={@form[:city]} type="text" label="Ville"/>
     </div>
     
     <div class="w-2/3 ml-11">
@@ -35,10 +33,9 @@
   </div>
   
   <:actions>
-    <div class="flex justify-end">
+    <div class="">
 
-      <button
-        class="phx-submit-loading:opacity-75 rounded-lg bg-[#0d4e62] hover:bg-[#a81616] py-2 px-3 text-sm font-semibold leading-6 text-white active:text-white/80">
+      <button class="phx-submit-loading:opacity-75 rounded-lg bg-[#0d4e62] hover:bg-[#a81616] py-2 px-3 text-sm font-semibold leading-6 text-white active:text-white/80">
         Sauvegarder
       </button>
 

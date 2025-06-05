@@ -1,11 +1,14 @@
 <.header>
-    This is the organization list
-    <:subtitle> pouet </:subtitle>
+    <div class="text-center text-5xl text-[#0d4e62]">
+        List des organisations
+    </div>
 </.header>
 
 <.table 
     id="organizations_list" 
     rows={@organizations_list}
     >
-    <:col :let={organization} label="name">{organization.name}</:col>
+    <:col :let={organization} label="Nom">{organization.name}</:col>
+    <:col :let={organization} label="Email">{organization.email}</:col>
+    <:col :let={organization} label="Téléphone">{organization.landline}</:col>
 </.table>

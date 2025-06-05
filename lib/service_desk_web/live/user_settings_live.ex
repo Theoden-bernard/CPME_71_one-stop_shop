@@ -19,16 +19,16 @@ defmodule ServiceDeskWeb.UserSettingsLive do
           phx-submit="update_info"
         >
         
-          <.input field={@info_form[:firstname]} type="text" label="firstname" />
-          <.input field={@info_form[:lastname]} type="text" label="lastname" />
-          <.input field={@info_form[:gsm]} type="text" label="gsm" />
-          <.input field={@info_form[:landline]} type="text" label="landline" />
+          <.input field={@info_form[:firstname]} type="text" label="Prénom" />
+          <.input field={@info_form[:lastname]} type="text" label="Nom" />
+          <.input field={@info_form[:gsm]} type="text" label="Portable" />
+          <.input field={@info_form[:landline]} type="text" label="Téléphone" />
           <.input field={@info_form[:address_1]} type="text" label="address_1" />
           <.input field={@info_form[:address_2]} type="text" label="address_2" />
-          <.input field={@info_form[:zip_code]} type="text" label="zip_code" />
-          <.input field={@info_form[:city]} type="text" label="city" />
+          <.input field={@info_form[:zip_code]} type="text" label="Code postal" />
+          <.input field={@info_form[:city]} type="text" label="Ville" />
           <:actions>
-            <.button phx-disable-with="Changing...">Change info</.button>
+            <.button phx-disable-with="Changing...">Sauvegarder</.button>
           </:actions>
         </.simple_form>
       </div>
@@ -51,7 +51,7 @@ defmodule ServiceDeskWeb.UserSettingsLive do
             required
           />
           <:actions>
-            <.button phx-disable-with="Changing...">Change Email</.button>
+            <.button phx-disable-with="Changing...">Sauvegarder</.button>
           </:actions>
         </.simple_form>
       </div>
@@ -71,11 +71,11 @@ defmodule ServiceDeskWeb.UserSettingsLive do
             id="hidden_user_email"
             value={@current_email}
           />
-          <.input field={@password_form[:password]} type="password" label="New password" required />
+          <.input field={@password_form[:password]} type="password" label="Nouveaux mot de passe" required />
           <.input
             field={@password_form[:password_confirmation]}
             type="password"
-            label="Confirm new password"
+            label="Confirmer nouveau mot de passe"
           />
           <.input
             field={@password_form[:current_password]}
@@ -87,7 +87,7 @@ defmodule ServiceDeskWeb.UserSettingsLive do
             required
           />
           <:actions>
-            <.button phx-disable-with="Changing...">Change Password</.button>
+            <.button phx-disable-with="Changing...">Sauvegarder</.button>
           </:actions>
         </.simple_form>
       </div>
