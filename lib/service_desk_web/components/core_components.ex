@@ -369,7 +369,7 @@ defmodule ServiceDeskWeb.CoreComponents do
   # All other inputs text, datetime-local, url, password, etc. are handled here...
   def input(assigns) do
     ~H"""
-    <div>
+    <div class="">
       <.label for={@id}>{@label}</.label>
       <input
         type={@type}
@@ -396,7 +396,7 @@ defmodule ServiceDeskWeb.CoreComponents do
 
   def label(assigns) do
     ~H"""
-    <label for={@for} class="block text-sm font-semibold leading-6 text-zinc-800">
+    <label for={@for} class="block text-sm font-semibold leading-6 text-zinc-300">
       {render_slot(@inner_block)}
     </label>
     """

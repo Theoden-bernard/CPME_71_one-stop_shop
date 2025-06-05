@@ -11,10 +11,11 @@ defmodule ServiceDesk.Organizations.Organization do
         field :zip_code, :string
         field :city, :string
         field :siren, :string
-        field :siret; :string
+        field :siret, :string
         belongs_to :user, ServiceDesk.Accounts.User
         many_to_many :tags, ServiceDesk.Tags.Tag, join_through: "organizations_tags"
         many_to_many :zones, ServiceDesk.Zones.Zone, join_through: "organizations_zones"
+        field :uploaded_files, :binary
     end
 
     def changeset(organization, attrs \\ %{}) do

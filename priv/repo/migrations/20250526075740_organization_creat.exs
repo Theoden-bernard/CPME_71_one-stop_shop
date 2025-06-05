@@ -13,6 +13,7 @@ defmodule ServiceDesk.Repo.Migrations.OrganizationCreat do
       add :siren, :string
       add :siret, :string
       add :user_id, references(:users, on_delete: :delete_all), null: false
+      add :uploaded_files, :binary
     end
 
     create table(:tags) do
