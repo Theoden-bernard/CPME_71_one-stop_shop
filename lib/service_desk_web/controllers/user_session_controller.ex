@@ -1,9 +1,9 @@
 defmodule ServiceDeskWeb.UserSessionController do
   use ServiceDeskWeb, :controller
 
-  alias ServiceDesk.Accounts
+  alias ServiceDesk.{Accounts, Repo}
   alias ServiceDeskWeb.UserAuth
-
+  
   def create(conn, %{"_action" => "registered"} = params) do
     create(conn, params, "Account created successfully!")
   end
@@ -14,6 +14,24 @@ defmodule ServiceDeskWeb.UserSessionController do
     |> create(params, "Password updated successfully!")
   end
 
+  def pin(conn, %{"pin" => entry, "puid" => puid}) do
+    pin =
+      puid
+      |> Accounts.get_pin!()
+      |> ServiceDesk.Repo.preload(:user)
+    
+    if entry == Integer.to_string(pin.pin) do
+      conn
+      |> put_flash(:info, "Bienvenu sur votre espace entreprise")
+      |> Plug.Conn.put_session(user_return_to: "/organization/edit")
+      |> UserAuth.log_in_user(pin.user, %{})
+    else
+      conn
+      |> put_flash(:error, "Invalid pin")
+      |> redirect(to: ~p"/log_in")
+    end
+  end
+  
   def create(conn, params) do
     create(conn, params, "Welcome back!")
   end

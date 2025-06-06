@@ -4,6 +4,7 @@ defmodule ServiceDesk.Messages.Message do
   
     schema "messages" do
         field :message, :string
+        field :zone, :integer
         timestamps(type: :utc_datetime)
         
         belongs_to :user, ServiceDesk.Accounts.User
@@ -13,5 +14,6 @@ defmodule ServiceDesk.Messages.Message do
         message
         |> cast(attrs, [:message])
         |> validate_required([:message])
+	|> validate_length(:message, max: 100)
     end
 end

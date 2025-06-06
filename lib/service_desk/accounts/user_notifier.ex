@@ -76,4 +76,23 @@ defmodule ServiceDesk.Accounts.UserNotifier do
     ==============================
     """)
   end
+  
+  @doc """
+  Deliver instructions to update a user email.
+  """
+  def deliver_pin_code(user, pin) do
+    deliver(user.email, "Code pour acceder a votre espace", """
+
+    ==============================
+
+    Bonjour,
+
+    Pour vous connecter, veullez entrer le code suivant :
+    
+    #{pin}
+    
+    ==============================
+    """)
+  end
+
 end

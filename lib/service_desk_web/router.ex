@@ -19,8 +19,8 @@ defmodule ServiceDeskWeb.Router do
 
   scope "/", ServiceDeskWeb do
     pipe_through :browser
-
-    get "/", PageController, :home
+    
+    live "/", HelpLive, :edit
   end
 
   # Other scopes may use custom stacks.
@@ -54,10 +54,13 @@ defmodule ServiceDeskWeb.Router do
       on_mount: [{ServiceDeskWeb.UserAuth, :redirect_if_user_is_authenticated}] do
       live "/users/register", UserRegistrationLive, :new
       live "/users/log_in", UserLoginLive, :new
+      live "/log_in", SimpleLoginLive, :new
+      live "/log_in/:puid", SimplePinLoginLive, :new
       live "/users/reset_password", UserForgotPasswordLive, :new
       live "/users/reset_password/:token", UserResetPasswordLive, :edit
     end
 
+    get "/log_in/:puid/:pin", UserSessionController, :pin
     post "/users/log_in", UserSessionController, :create
   end
 
@@ -66,7 +69,6 @@ defmodule ServiceDeskWeb.Router do
 
     live_session :require_authenticated_user,
       on_mount: [{ServiceDeskWeb.UserAuth, :ensure_authenticated}] do
-      live "/help", HelpLive, :edit
       live "/users/settings", UserSettingsLive, :edit
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
       live "/organization/index", Live.OrganizationLive.Index, :index

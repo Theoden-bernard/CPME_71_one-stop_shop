@@ -27,7 +27,7 @@
         </li>
         <li>
           <.link
-            href={~p"/help"}
+            href={~p"/"}
             class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
           >
             Faire une demande
@@ -74,7 +74,16 @@
             Déconnexion
           </.link>
         </li>
-      <% end %>
+	<% else %>
+	        <li>
+          <.link
+            href={~p"/log_in"}
+            class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
+          >
+            Connection
+          </.link>
+        </li>
+	<% end %>
     </ul>
     {@inner_content}
   </body>

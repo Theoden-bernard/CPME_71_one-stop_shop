@@ -9,3 +9,5 @@ erl_crash.dump
 /config/*.secret.exs
 .elixir_ls/
 .env
+priv/static/images/organizations/logo
+priv/static/uploads/

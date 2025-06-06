@@ -1,19 +1,38 @@
-<main>
-    <div class="flex justify-center items-center pb-10 text-center text-[#0d4e62]">
-        Un problème informatique, un projet en cours ou juste un conseil ! <br>
-        Trouvez facilement le professionnel du numérique qui sera répondre à vos besoins.
-    </div>
+<div>
+  <div class="flex justify-center items-center pb-10 text-center text-[#0d4e62]">
+    Un problème informatique, un projet en cours ou juste un conseil ! <br>
+    Trouvez facilement le professionnel du numérique qui sera répondre à vos besoins.
+  </div>
+  
+  <div class="flex justify-center items-center pb-8 text-[#0d4e62] text-5xl">
+    Quelle est votre besoin ?
+  </div>
+  
+  <div class="flex justify-center items-center pb-5 text-[#0d4e62]">
+    Exprimez votre besoin par mots-clés, domaine de compétence ou situation géographique
+  </div>
+  
+  <div class="flex justify-center">
+    <.simple_form
+      for={@form}
+      id="form"
+      phx-change="validate"
+      >
+      <.input field={@form[:zone]} type="select" options={zone_list()} prompt="--" label="Votre departement"/>
+      <div>
+	Exprimez votre besoin au travers de mots clefs
+      </div>
+      <div class="flex flex-wrap justify-center gap-1">
+	<span :for={keyword <- keywords()} class="p-1 bg-[#0d4e62] text-white border border-[#0d4e62] rounded-full text-xs"> {keyword} </span>
+      </div>
+      <.input field={@form[:message]} type="textarea" cols="42" rows="5" class="text-up w-11/12 h-32 rounded-sm" placeholder="Comment vous aider aujourd'hui" phx-debounce="500"/>
+    </.simple_form>
+  </div>
 
-    <div class="flex justify-center items-center pb-8 text-[#0d4e62] text-5xl">
-        Quelle est votre besoin ?
-    </div>
-
-    <div class="flex justify-center items-center pb-5 text-[#0d4e62]">
-        Exprimez votre besoin par mots-clés, domaine de compétence ou situation géographique
-    </div>
-    
-    <div class="flex justify-center">
-        <input class="w-11/12 h-32 rounded-md border border-gray-300 bg-white shadow-sm focus:border-zinc-400 focus:ring-0" type="text" name="question" placeholder="Comment vous aider aujourd'hui ?">
-    </div>
-
-</main>
+  <.table
+    id="organization"
+    rows={@organizations}>
+      <:col :let={organization} label="Name"> {organization.name} </:col>
+  </.table> 
+  </div>
+</div>
