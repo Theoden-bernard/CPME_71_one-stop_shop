@@ -1,8 +1,7 @@
 defmodule ServiceDesk.Tags do 
     import Ecto.Query, warn: false
-    alias ServiceDesk.{Accounts, Repo}
+    alias ServiceDesk.Repo
     alias ServiceDesk.Tags.Tag
-    alias Ecto.Changeset
 
     def get_tag!(id), 
         do: Repo.get!(Tag, id)
@@ -11,19 +10,10 @@ defmodule ServiceDesk.Tags do
         Repo.all(Tag)
     end
 
-    def create_tag(%{"user_id" => user_id} = attrs) when is_integer(user_id) and user_id > 0 do
-        user_id
-        |> Accounts.get_user!()
-        |> Ecto.build_assoc(:tags, attrs)
-        |> Tag.changeset()
-        |> Repo.insert()
-    end
-
-    def create_tag(_attrs) do 
-        {:error,
-            %Tag{}
-            |> Changeset.change()
-            |> Changeset.add_error(:user, "User can't be blanck")}
+    def create_tag(attrs) do
+      %Tag{}
+      |> Tag.changeset(attrs)
+      |> Repo.insert()
     end
     
     def update_tag(tag, attrs) do
@@ -35,4 +25,7 @@ defmodule ServiceDesk.Tags do
     def delete_tag(tag) do
         Repo.delete(tag)
     end
+
+    def to_keywords(tags),
+      do: Enum.map(tags, &(&1.name))
 end

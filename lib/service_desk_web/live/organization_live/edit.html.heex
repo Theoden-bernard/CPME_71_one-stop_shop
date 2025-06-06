@@ -1,8 +1,10 @@
 <.header>
-    
-    <div class="text-[#0d4e62] text-5xl flex justify-center">
-      Ta fiche entreprise
-    </div>
+
+  <div class="flex justify-center">
+    <.company_logo id={@current_user.id} />
+  </div>
+  <div class="text-[#0d4e62] text-5xl flex justify-center">
+    Ta fiche entreprise     </div>
 
 </.header>
 
@@ -12,6 +14,7 @@
   for={@form}
   id="form"
   phx-submit="save"
+  phx-change="validate"
 >
   
   <div class="flex flex-row">
@@ -44,5 +47,4 @@
 
     </div>
   </:actions>
-  
 </.simple_form>

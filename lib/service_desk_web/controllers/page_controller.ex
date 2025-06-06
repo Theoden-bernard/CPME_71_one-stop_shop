@@ -5,7 +5,7 @@ defmodule ServiceDeskWeb.PageController do
     # The home page is often custom made,
     # so skip the default app layout.
     if (conn.assigns.current_user) do
-      redirect(conn, to: "/users/settings")
+      redirect(conn, to: "/help")
     else
       redirect(conn, to: "/users/log_in")
     end

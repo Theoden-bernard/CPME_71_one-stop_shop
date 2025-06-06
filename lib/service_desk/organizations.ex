@@ -1,6 +1,6 @@
 defmodule ServiceDesk.Organizations do
     import Ecto.Query, warn: false
-    alias ServiceDesk.{Accounts, Repo}
+    alias ServiceDesk.{Accounts, KeywordSearch, Repo, Tags}
     alias ServiceDesk.Organizations.Organization
     alias Ecto.Changeset
 
@@ -33,6 +33,15 @@ defmodule ServiceDesk.Organizations do
     end
 
     def delete_organization(organization) do
-        Repo.delete(organization)
+      Repo.delete(organization)
     end
+
+    def change_organization(%Organization{} = organization, attrs),
+      do: Organization.changeset(organization, attrs)
+
+    def list_organizations_by_message(message) do
+      list_organizations()
+      |> Repo.preload([:zones, :tags])
+      |> Enum.filter(&(KeywordSearch.keywords?(message.message, Tags.to_keywords(&1.tags))))
+    end    
 end

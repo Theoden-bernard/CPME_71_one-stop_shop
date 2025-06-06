@@ -6,7 +6,7 @@ defmodule ServiceDesk.Accounts do
   import Ecto.Query, warn: false
   alias ServiceDesk.Repo
 
-  alias ServiceDesk.Accounts.{User, UserToken, UserNotifier}
+  alias ServiceDesk.Accounts.{Pin, User, UserToken, UserNotifier}
 
   ## Database getters
 
@@ -359,4 +359,26 @@ defmodule ServiceDesk.Accounts do
       {:error, :user, changeset, _} -> {:error, changeset}
     end
   end
+
+  def create_pin(%User{} = user) do
+    attrs = %{
+      "puid" => Enum.random(1_000_000_000..100_000_000_000),
+      "pin" => Enum.random(1..999_999)
+    }
+    
+    case %Pin{}
+    |> Pin.changeset(attrs)
+    |> Repo.insert() do
+      {:ok, pin} ->
+	pin
+	|> Repo.preload(:user)
+	|> Pin.changeset(%{})
+	|> Ecto.Changeset.put_assoc(:user, user)
+	|> Repo.update()
+      error -> error
+    end
+  end
+
+  def get_pin!(puid),
+    do: Repo.get_by!(Pin, puid: puid)
 end

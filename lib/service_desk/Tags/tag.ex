@@ -4,7 +4,7 @@ defmodule ServiceDesk.Tags.Tag do
 
     schema "tags" do
         field :name, :string
-        many_to_many :organizations, ServiceDesk.Organizations.Organization, join_through: :organizations_tags
+        many_to_many :organizations, ServiceDesk.Organizations.Organization, join_through: "organizations_tags"
     end
 
     def changeset(tag, attrs \\ %{}) do

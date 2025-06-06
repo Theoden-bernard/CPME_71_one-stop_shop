@@ -4,14 +4,14 @@ import Config
 database_username =
   System.get_env("DATABASE_USERNAME") ||
     raise """
-    environment variable DATABASE_URL is missing.
+    environment variable DATABASE_USERNAME is missing.
     For example: ecto://USER:PASS@HOST/DATABASE
     """
 
 database_password =
   System.get_env("DATABASE_PASSWORD") ||
     raise """
-    environment variable DATABASE_URL is missing.
+    environment variable DATABASE_PASSWORD is missing.
     For example: ecto://USER:PASS@HOST/DATABASE
     """
 config :service_desk, ServiceDesk.Repo,

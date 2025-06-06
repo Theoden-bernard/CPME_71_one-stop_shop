@@ -35,4 +35,12 @@ defmodule ServiceDesk.Messages do
     def delete_message(message) do
         Repo.delete(message)
     end
+
+    def new_message do
+      %Message{}
+    end
+
+    def change_message(%Message{} = message, attrs \\ %{}) do
+      Message.changeset(message, attrs)
+    end
 end

@@ -1,19 +1,38 @@
-<main>
-    <div class="flex justify-center items-center pb-10 text-center text-[#0d4e62]">
-        A computer problem, an ongoing project, or just need advice ! <br>
-        Easily find the digital professional who can meet your needs.
-    </div>
-
-    <div class="flex justify-center items-center pb-8 text-[#0d4e62] text-5xl">
-        What is your need ?
-    </div>
-
-    <div class="flex justify-center items-center pb-5 text-[#0d4e62]">
-        Express your need by keywords, area of ​​expertise or geographical location
-    </div>
-    
-    <div class="flex justify-center">
-        <input class="text-up w-11/12 h-32 rounded-sm" type="text" name="question" placeholder="How can we help you today ?">
-    </div>
-
-</main>
+<div>
+  <div class="flex justify-center items-center pb-10 text-center text-[#0d4e62]">
+    A computer problem, an ongoing project, or just need advice ! <br>
+    Easily find the digital professional who can meet your needs.
+  </div>
+  
+  <div class="flex justify-center items-center pb-8 text-[#0d4e62] text-5xl">
+    What is your need ?
+  </div>
+  
+  <div class="flex justify-center items-center pb-5 text-[#0d4e62]">
+    Express your need by keywords, area of expertise or geographical location
+  </div>
+  
+  <div class="flex justify-center">
+    <.simple_form
+      for={@form}
+      id="form"
+      phx-change="validate"
+      >
+      <.input field={@form[:zone]} type="select" options={zone_list()} prompt="--" label="Votre departement"/>
+      <div>
+	Exprimez votre besoin au travers de mots clefs
+      </div>
+      <div class="flex flex-wrap justify-center gap-1">
+	<span :for={keyword <- keywords()} class="p-1 bg-[#0d4e62] text-white border border-[#0d4e62] rounded-full text-xs"> {keyword} </span>
+      </div>
+      <.input field={@form[:message]} type="textarea" cols="42" rows="5" class="text-up w-11/12 h-32 rounded-sm" placeholder="Comment vous aider aujourd'hui" phx-debounce="500"/>
+    </.simple_form>
+  </div>
+<div>
+  <.table
+    id="organization"
+    rows={@organizations}>
+      <:col :let={organization} label="Name"> {organization.name} </:col>
+  </.table> 
+  </div>
+</div>

@@ -19,6 +19,24 @@ defmodule ServiceDeskWeb.CoreComponents do
 
   alias Phoenix.LiveView.JS
 
+  attr :id, :string, required: true
+  
+  def company_logo(assigns) do
+    id = Integer.to_string(assigns.id)
+    filename =
+      cond do
+        File.exists?("priv/static/images/organizations/logo/#{assigns.id}.png") -> id <> ".png"
+        File.exists?("priv/static/images/organizations/logo/#{assigns.id}.jpg") -> id <> ".jpg"
+        File.exists?("priv/static/images/organizations/logo/#{assigns.id}.jpeg") -> id <> ".jpeg"
+         true -> "no-file.png"
+    end
+    assigns = assign(assigns, :filename, filename)
+    
+    ~H"""
+    <img class="p-4 w-64 text-base" src={"/images/organizations/logo/" <> @filename} alt="Téléchargez votre logo"} />
+    """
+  end
+  
   @doc """
   Renders a modal.
 
