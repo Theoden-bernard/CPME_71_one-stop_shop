@@ -13,17 +13,21 @@ defmodule ServiceDeskWeb.UserSessionController do
     |> put_session(:user_return_to, ~p"/users/settings")
     |> create(params, "Password updated successfully!")
   end
+  
+  def create(conn, params) do
+    create(conn, params, "Welcome back!")
+  end
 
   def pin(conn, %{"pin" => entry, "puid" => puid}) do
     pin =
       puid
       |> Accounts.get_pin!()
-      |> ServiceDesk.Repo.preload(:user)
+      |> Repo.preload(:user)
     
     if entry == Integer.to_string(pin.pin) do
       conn
       |> put_flash(:info, "Bienvenu sur votre espace entreprise")
-      |> Plug.Conn.put_session(user_return_to: "/organization/edit")
+      |> Plug.Conn.put_session(:user_return_to, "/organization/edit")
       |> UserAuth.log_in_user(pin.user, %{})
     else
       conn
@@ -32,10 +36,6 @@ defmodule ServiceDeskWeb.UserSessionController do
     end
   end
   
-  def create(conn, params) do
-    create(conn, params, "Welcome back!")
-  end
-
   defp create(conn, %{"user" => user_params}, info) do
     %{"email" => email, "password" => password} = user_params
 

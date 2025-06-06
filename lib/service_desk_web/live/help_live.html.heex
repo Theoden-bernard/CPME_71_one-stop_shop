@@ -25,7 +25,9 @@
       <div class="flex flex-wrap justify-center gap-1">
 	<span :for={keyword <- keywords()} class="p-1 bg-[#0d4e62] text-white border border-[#0d4e62] rounded-full text-xs"> {keyword} </span>
       </div>
-      <.input field={@form[:message]} type="textarea" cols="42" rows="5" class="text-up w-11/12 h-32 rounded-sm" placeholder="Comment vous aider aujourd'hui" phx-debounce="500"/>
+     <div>
+       <.input field={@form[:message]} type="textarea" cols="42" rows="5" class="text-up w-11/12 h-32 rounded-sm" placeholder="Comment vous aider aujourd'hui" phx-debounce="500"/>
+     </div>
     </.simple_form>
   </div>
 
@@ -34,5 +36,4 @@
     rows={@organizations}>
       <:col :let={organization} label="Name"> {organization.name} </:col>
   </.table> 
-  </div>
 </div>

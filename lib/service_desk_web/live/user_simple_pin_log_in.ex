@@ -2,7 +2,6 @@ defmodule ServiceDeskWeb.SimplePinLoginLive do
   use ServiceDeskWeb, :live_view
 
   alias ServiceDesk.Accounts
-  alias ServiceDeskWeb.UserAuth
 
   defguard is_pin(pin) when (pin == <<?0>> or pin == <<?1>> or pin == <<?2>> or pin == <<?3>> or pin == <<?4>> or pin == <<?4>> or pin == <<?5>> or pin == <<?6>> or pin == <<?7>> or pin == <<?8>> or pin == <<?9>>)
   
@@ -58,11 +57,6 @@ defmodule ServiceDeskWeb.SimplePinLoginLive do
       |> Integer.undigits()
 
     if pin_code == socket.assigns.pin.pin do
-      user =
-	socket.assigns.pin
-	|> ServiceDesk.Repo.preload(:user)
-	|> Map.get(:user)
-	
       {:noreply,
        socket
        |> put_flash(:info, "Bienvenu dans votre espace entreprise")

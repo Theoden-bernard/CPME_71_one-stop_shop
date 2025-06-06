@@ -11,3 +11,4 @@ erl_crash.dump
 .env
 priv/static/images/organizations/logo
 priv/static/uploads/
+priv/static/assets/app.css
