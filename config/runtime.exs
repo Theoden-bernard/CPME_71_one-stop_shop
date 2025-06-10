@@ -21,6 +21,28 @@ if System.get_env("PHX_SERVER") do
 end
 
 if config_env() == :prod do
+  smtp_relay = System.get_env("COLINT_SMTP_SERVER") || raise "Environment variable COLINT_SMTP_SERVER is missing."
+  smtp_port = System.get_env("COLINT_SMTP_PORT") || raise "Environment variable COLINT_SMTP_PORT is missing."
+  smtp_username = System.get_env("COLINT_SMTP_USERNAME") || raise "Environment variable COLINT_SMTP_USERNAME is missing."
+  smtp_password = System.get_env("COLINT_SMTP_PASSWORD") || raise "Environment variable COLINT_SMTP_PASSWORD is missing."
+
+  config :service_desk, ServiceDesk.Mailer,
+    adapter: Swoosh.Adapters.SMTP,
+    relay: smtp_relay,
+    port: smtp_port,
+    username: smtp_username,
+    password: smtp_password,
+    tls: :always,
+    auth: :always,
+    tls_options: [
+      versions: [:"tlsv1.2", :"tlsv1.3"],
+      cacerts: :public_key.cacerts_get(),
+      server_name_indication: ~c"#{smtp_relay}", # what your certificate is issued for
+      depth: 64, # important or stuff may crash with - {:bad_cert, :max_path_length_reached}
+    ],
+    ssl: false
+
+
   database_url =
     System.get_env("DATABASE_URL") ||
       raise """

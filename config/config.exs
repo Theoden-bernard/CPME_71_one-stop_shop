@@ -29,31 +29,10 @@ config :service_desk, ServiceDeskWeb.Endpoint,
 #
 # For production it's recommended to configure a different adapter
 # at the `config/runtime.exs`.
-#config :service_desk, ServiceDesk.Mailer, adapter: Swoosh.Adapters.Local
 
-smtp_relay = System.get_env("COLINT_SMTP_SERVER") || raise "Environment variable COLINT_SMTP_SERVER is m\
-issing."
-smtp_port = System.get_env("COLINT_SMTP_PORT") || raise "Environment variable COLINT_SMTP_PORT is missin\
-g."
-smtp_username = System.get_env("COLINT_SMTP_USERNAME") || raise "Environment variable COLINT_SMTP_USERNA\
-ME is missing."
-smtp_password = System.get_env("COLINT_SMTP_PASSWORD") || raise "Environment variable COLINT_SMTP_PASSWO\
-RD is missing."
-config :service_desk, ServiceDesk.Mailer,
-  adapter: Swoosh.Adapters.SMTP,
-  relay: smtp_relay,
-  port: smtp_port,
-  username: smtp_username,
-  password: smtp_password,
-  tls: :always,
-  auth: :always,
-  tls_options: [
-    versions: [:"tlsv1.2", :"tlsv1.3"],
-    cacerts: :public_key.cacerts_get(),
-    server_name_indication: ~c"#{smtp_relay}", # what your certificate is issued for
-    depth: 64, # important or stuff may crash with - {:bad_cert, :max_path_length_reached}
-  ],
-  ssl: false
+config :service_desk, ServiceDesk.Mailer, 
+  adapter: Swoosh.Adapters.Local
+
 
 # Configure esbuild (the version is required)
 config :esbuild,

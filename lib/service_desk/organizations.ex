@@ -43,5 +43,6 @@ defmodule ServiceDesk.Organizations do
       list_organizations()
       |> Repo.preload([:zones, :tags])
       |> Enum.filter(&(KeywordSearch.keywords?(message.message, Tags.to_keywords(&1.tags))))
-    end    
+    end
+
 end
