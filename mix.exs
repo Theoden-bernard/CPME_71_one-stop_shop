@@ -52,6 +52,8 @@ defmodule ServiceDesk.MixProject do
        compile: false,
        depth: 1},
       {:swoosh, "~> 1.5"},
+      {:mua, "~> 0.2.0"},
+      {:mail, "~> 0.3.0"},
       {:gen_smtp, "~> 1.0"},
       {:finch, "~> 0.13"},
       {:telemetry_metrics, "~> 1.0"},

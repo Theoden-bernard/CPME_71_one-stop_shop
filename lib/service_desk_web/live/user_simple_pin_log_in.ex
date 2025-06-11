@@ -10,12 +10,12 @@ defmodule ServiceDeskWeb.SimplePinLoginLive do
     <div :if={@invalid} class="text-center text-xl text-[#a81616]"> Votre code pin est invalide </div>
     <div class="mx-auto max-w-sm">
       <.simple_form for={@form} id="login_form" phx-update="ignore" phx-change="validate" >
-        <.input field={@form[:one]} type="text" phx-debounce="500" required />
-        <.input field={@form[:two]} type="text" phx-debounce="500" required />
-        <.input field={@form[:three]} type="text" phx-debounce="500" required />
-        <.input field={@form[:four]} type="text" phx-debounce="500" required />
-        <.input field={@form[:five]} type="text" phx-debounce="500" required />
-        <.input field={@form[:six]} type="text" phx-debounce="500" required />
+        <.input field={@form[:one]} type="text" max="9" required />
+        <.input field={@form[:two]} type="text" max="9" required />
+        <.input field={@form[:three]} type="text" max="9" required />
+        <.input field={@form[:four]} type="text" max="9" required />
+        <.input field={@form[:five]} type="text" max="9" required />
+        <.input field={@form[:six]} type="text" max="9" required />
       </.simple_form>
     </div>
     """
@@ -66,7 +66,15 @@ defmodule ServiceDeskWeb.SimplePinLoginLive do
     end
   end
 
-  def handle_event("validate", %{"pin" => _pin}, socket) do
-    {:noreply, socket}
+  def handle_event("validate", %{"_target" => ["pin", form]}, socket) do
+    map =
+      %{"one" => "pin_two",
+	"two" => "pin_three",
+	"three" => "pin_four",
+	"four" => "pin_five",
+	"five" => "pin_six"}
+    next = Map.get(map, form)
+    IO.inspect(next, label: "info")
+    {:noreply, push_event(socket, "focusElementById", %{id: next})}
   end
 end

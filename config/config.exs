@@ -31,29 +31,28 @@ config :service_desk, ServiceDeskWeb.Endpoint,
 # at the `config/runtime.exs`.
 #config :service_desk, ServiceDesk.Mailer, adapter: Swoosh.Adapters.Local
 
-smtp_relay = System.get_env("COLINT_SMTP_SERVER") || raise "Environment variable COLINT_SMTP_SERVER is m\
-issing."
-smtp_port = System.get_env("COLINT_SMTP_PORT") || raise "Environment variable COLINT_SMTP_PORT is missin\
-g."
-smtp_username = System.get_env("COLINT_SMTP_USERNAME") || raise "Environment variable COLINT_SMTP_USERNA\
-ME is missing."
-smtp_password = System.get_env("COLINT_SMTP_PASSWORD") || raise "Environment variable COLINT_SMTP_PASSWO\
-RD is missing."
+smtp_relay = System.get_env("SMTP_SERVER") || raise "Environment variable SMTP_SERVER is missing."
+smtp_port = System.get_env("SMTP_PORT") || raise "Environment variable SMTP_PORT is missing."
+smtp_username = System.get_env("SMTP_USERNAME") || raise "Environment variable SMTP_USERNAME is missing."
+smtp_password = System.get_env("SMTP_PASSWORD") || raise "Environment variable SMTP_PASSWORD is missing."
+
 config :service_desk, ServiceDesk.Mailer,
   adapter: Swoosh.Adapters.SMTP,
   relay: smtp_relay,
-  port: smtp_port,
+  port: 465,
   username: smtp_username,
   password: smtp_password,
-  tls: :always,
+  tls: :if_available,
   auth: :always,
   tls_options: [
+    verify: :verify_none,
     versions: [:"tlsv1.2", :"tlsv1.3"],
     cacerts: :public_key.cacerts_get(),
-    server_name_indication: ~c"#{smtp_relay}", # what your certificate is issued for
+    server_name_indication: ~c"ns0.ovh.net", # what your certificate is issued for
     depth: 64, # important or stuff may crash with - {:bad_cert, :max_path_length_reached}
   ],
   ssl: false
+
 
 # Configure esbuild (the version is required)
 config :esbuild,
