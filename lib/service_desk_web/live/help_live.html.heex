@@ -1,6 +1,6 @@
 <div>
   
- <div class="flex justify-center items-center pb-6 text-center text-[#0d4e62] text-6xl font-bold leading-tight">
+ <div class="flex justify-center items-center pb-6 text-center text-[#0d4e62] text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
   Quel est votre besoin ?
 </div>
 
@@ -17,17 +17,23 @@
   <.simple_form for={@form} id="form" phx-change="validate">
     <div class="flex flex-wrap justify-center gap-2 pb-4">
       <%= for {keyword, index} <- Enum.with_index(keywords()) do %>
-        <%= if index < 3 do %>
-          <span class="px-3 py-1 bg-[#0d4e62] text-white border border-[#0d4e62] rounded-full text-sm">
+        <%= if index < 3 || @show_all_tags do %>
+          <span 
+            class="px-3 py-1 bg-[#0d4e62] text-white border border-[#0d4e62] rounded-full text-sm cursor-pointer hover:bg-[#0d4e62]/80 transition-colors"
+            phx-click="select_tag"
+            phx-value-tag={keyword}
+          >
             <%= keyword %>
           </span>
         <% end %>
       <% end %>
 
-      <%= if length(keywords()) > 3 do %>
+      <%= if length(keywords()) > 3 && !@show_all_tags do %>
         <% others = Enum.drop(keywords(), 3) %>
-        <% title = Enum.join(others, ", ") %>
-        <span title={title} class="px-3 py-1 bg-gray-200 text-[#0d4e62] border border-[#0d4e62] rounded-full text-sm cursor-pointer">
+        <span 
+          phx-click="show_all_tags"
+          class="px-3 py-1 bg-gray-200 text-[#0d4e62] border border-[#0d4e62] rounded-full text-sm cursor-pointer hover:bg-gray-300 transition-colors"
+        >
           +<%= length(others) %> autres
         </span>
       <% end %>
@@ -36,25 +42,102 @@
     <div class="flex justify-center">
       <.input field={@form[:message]} type="textarea" cols="42" rows="5"
         class="w-11/12 max-w-2xl p-4 rounded-md border border-[#0d4e62] text-[#0d4e62] placeholder-gray-400"
-        placeholder="Comment pouvons-nous vous aider aujourd’hui ?" phx-debounce="500" />
+        placeholder="Comment pouvons-nous vous aider aujourd'hui ?" phx-debounce="500" />
     </div>
 
     <div class="flex justify-center items-center pt-4 text-[#0d4e62] italic text-sm">
-      Vous ne trouvez pas ? <.link href="mailto:contact@guichet-unique-numerique.fr" class="underline">Contactez-nous par mail</.link>
+      Vous ne trouvez pas ?&nbsp;<.link href="mailto:contact@guichet-unique-numerique.fr" class="underline ml-1">Contactez-nous par mail</.link>
     </div>
   </.simple_form>
 </div>
 
-  <.table
-    id="organization"
-    rows={@organizations}
-    row_click={fn organization -> JS.navigate(~p"/entreprise/#{organization}/fiche") end}
-    >
-      <:col :let={organization} label="Name"> {organization.name} </:col>
-  </.table> 
+<div class="mt-8 px-4 max-w-5xl mx-auto">
+  <%= if @has_search_query do %>
+    <%= if @organizations != [] do %>
+      <h3 class="text-xl font-semibold text-[#0d4e62] mb-4 text-center">
+        Voici les entreprises qui correspondent à votre recherche
+      </h3>
+      
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <%= for organization <- @organizations do %>
+          <div 
+            class="bg-white rounded-lg shadow-md overflow-hidden border border-[#0d4e62]/10 hover:shadow-lg transition-all cursor-pointer"
+            phx-click="show_organization"
+            phx-value-id={organization.id}
+          >
+            <div class="p-4 border-b border-[#0d4e62]/10">
+              <div class="font-bold text-lg text-[#0d4e62] mb-1 truncate">
+                <%= organization.name %>
+              </div>
+              <%= if organization.baseline do %>
+                <p class="text-sm text-gray-600 italic truncate">
+                  <%= organization.baseline %>
+                </p>
+              <% end %>
+            </div>
+            
+            <div class="p-4 pt-2 space-y-2">
+              <%= if organization.activity do %>
+                <div class="flex items-center text-sm">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-[#0d4e62]/70" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z" clip-rule="evenodd" />
+                    <path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z" />
+                  </svg>
+                  <span class="text-gray-700 truncate"><%= organization.activity %></span>
+                </div>
+              <% end %>
+              
+              <%= if organization.city do %>
+                <div class="flex items-center text-sm">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-[#0d4e62]/70" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+                  </svg>
+                  <span class="text-gray-700 truncate">
+                    <%= [organization.zip_code, organization.city] |> Enum.reject(&is_nil/1) |> Enum.join(" ") %>
+                  </span>
+                </div>
+              <% end %>
+            </div>
+            
+            <div class="bg-[#f8fafc] px-4 py-3 flex justify-between items-center">
+              <div class="flex items-center">
+                <%= if organization.email do %>
+                  <a href={"mailto:#{organization.email}"} class="text-[#0d4e62] hover:text-[#0d4e62]/80 mr-2" title="Email" onclick="event.stopPropagation()">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                      <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                      <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                    </svg>
+                  </a>
+                <% end %>
+                
+                <%= if organization.website do %>
+                  <a href={organization.website} target="_blank" class="text-[#0d4e62] hover:text-[#0d4e62]/80 mr-2" title="Site web" onclick="event.stopPropagation()">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                      <path fill-rule="evenodd" d="M4.083 9h1.946c.089-1.546.383-2.97.837-4.118A6.004 6.004 0 004.083 9zM10 2a8 8 0 100 16 8 8 0 000-16zm0 2c-.076 0-.232.032-.465.262-.238.234-.497.623-.737 1.182-.389.907-.673 2.142-.766 3.556h3.936c-.093-1.414-.377-2.649-.766-3.556-.24-.56-.5-.948-.737-1.182C10.232 4.032 10.076 4 10 4zm3.971 5c-.089-1.546-.383-2.97-.837-4.118A6.004 6.004 0 0115.917 9h-1.946zm-2.003 2H8.032c.093 1.414.377 2.649.766 3.556.24.56.5.948.737 1.182.233.23.389.262.465.262.076 0 .232-.032.465-.262.238-.234.498-.623.737-1.182.389-.907.673-2.142.766-3.556zm1.166 4.118c.454-1.147.748-2.572.837-4.118h1.946a6.004 6.004 0 01-2.783 4.118zm-6.268 0C6.412 13.97 6.118 12.546 6.03 11H4.083a6.004 6.004 0 002.783 4.118z" clip-rule="evenodd" />
+                    </svg>
+                  </a>
+                <% end %>
+              </div>
+              
+              <div>
+                <span class="text-xs py-1 px-2 bg-[#0d4e62] text-white rounded-full">
+                  Voir détails
+                </span>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="text-center text-gray-500 italic my-8">
+        Aucun résultat ne correspond à votre recherche
+      </div>
+    <% end %>
+  <% end %>
+</div>
 </div>
 
-<.modal :if={@live_action == :show} id="organization-modal" show on_cancel={JS.patch(~p"/")}>
+<.modal :if={@live_action == :show} id="organization-modal" show on_cancel={JS.push("close_modal")} max_width="max-w-5xl">
   <.live_component
     module={ServiceDeskWeb.Live.OrganizationLive.ShowComponent}
     id={@organization.id}
