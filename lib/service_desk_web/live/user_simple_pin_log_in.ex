@@ -9,13 +9,67 @@ defmodule ServiceDeskWeb.SimplePinLoginLive do
     ~H"""
     <div :if={@invalid} class="text-center text-xl text-[#a81616]"> Votre code pin est invalide </div>
     <div class="mx-auto max-w-sm">
-      <.simple_form for={@form} id="login_form" phx-update="ignore" phx-change="validate" >
-        <.input field={@form[:one]} type="text" phx-debounce="500" required />
-        <.input field={@form[:two]} type="text" phx-debounce="500" required />
-        <.input field={@form[:three]} type="text" phx-debounce="500" required />
-        <.input field={@form[:four]} type="text" phx-debounce="500" required />
-        <.input field={@form[:five]} type="text" phx-debounce="500" required />
-        <.input field={@form[:six]} type="text" phx-debounce="500" required />
+      <.simple_form for={@form} id="login_form" phx-update="ignore" phx-change="validate" >  
+        <div class="flex flex-row gap-2">
+          <input
+            type="text"
+            name="one"
+            id="one"
+            value={Phoenix.HTML.Form.normalize_value("text", @form[:one].value)}
+            class={[
+              "mt-2 block w-full rounded-lg text-zinc-900 text-center focus:ring-0 sm:text-sm sm:leading-6",
+            ]}
+          />
+
+          <input
+            type="text"
+            name="two"
+            id="two"
+            value={Phoenix.HTML.Form.normalize_value("text", @form[:two].value)}
+            class={[
+              "mt-2 block w-full rounded-lg text-zinc-900 text-center focus:ring-0 sm:text-sm sm:leading-6",
+            ]}
+          />
+
+          <input
+            type="text"
+            name="three"
+            id="three"
+            value={Phoenix.HTML.Form.normalize_value("text", @form[:three].value)}
+            class={[
+              "mt-2 block w-full rounded-lg text-zinc-900 text-center focus:ring-0 sm:text-sm sm:leading-6",
+            ]}
+          />
+                    <input
+            type="text"
+            name="four"
+            id="four"
+            value={Phoenix.HTML.Form.normalize_value("text", @form[:four].value)}
+            class={[
+              "mt-2 block w-full rounded-lg text-zinc-900 text-center focus:ring-0 sm:text-sm sm:leading-6",
+            ]}
+          />
+
+          <input
+            type="text"
+            name="five"
+            id="five"
+            value={Phoenix.HTML.Form.normalize_value("text", @form[:five].value)}
+            class={[
+              "mt-2 block w-full rounded-lg text-zinc-900 text-center focus:ring-0 sm:text-sm sm:leading-6",
+            ]}
+          />
+
+          <input
+            type="text"
+            name="six"
+            id="six"
+            value={Phoenix.HTML.Form.normalize_value("text", @form[:six].value)}
+            class={[
+              "mt-2 block w-full rounded-lg text-zinc-900 text-center focus:ring-0 sm:text-sm sm:leading-6",
+            ]}
+          />
+        </div>
       </.simple_form>
     </div>
     """
@@ -69,4 +123,11 @@ defmodule ServiceDeskWeb.SimplePinLoginLive do
   def handle_event("validate", %{"pin" => _pin}, socket) do
     {:noreply, socket}
   end
+
+  def handle_event(any, params, socket) do 
+    IO.inspect(any)
+    IO.inspect(params)
+    {:noreply , socket}
+  end
+
 end
