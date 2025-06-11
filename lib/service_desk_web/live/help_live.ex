@@ -11,9 +11,18 @@ defmodule ServiceDeskWeb.HelpLive do
     
     {:ok,
      socket
+     |> assign(:live_action, nil)
      |> assign(:form, form)
      |> assign(:organizations, Organizations.list_organizations())
      |> assign(:message, message)}
+  end
+
+  def handle_params(%{"id" => id}, _, socket} do
+    organization = Organizations.get_organization!(id)
+    {:noreply,
+     socket
+     |> assign(:live_action, :show)
+     |> assign(:organization, organization)}
   end
   
   def handle_event(_, %{"message" => params}, socket) do

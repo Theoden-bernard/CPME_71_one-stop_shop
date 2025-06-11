@@ -363,7 +363,7 @@ defmodule ServiceDesk.Accounts do
   def create_pin(%User{} = user) do
     attrs = %{
       "puid" => Enum.random(1_000_000_000..100_000_000_000),
-      "pin" => Enum.random(1..999_999)
+      "pin" => Enum.random(111_111..999_999)
     }
     
     case %Pin{}

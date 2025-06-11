@@ -47,7 +47,18 @@
 
   <.table
     id="organization"
-    rows={@organizations}>
+    rows={@organizations}
+    row_click=fn organization} -> JS.navigate(~p"/entreprise/#{company}/show") end}
+    >
       <:col :let={organization} label="Name"> {organization.name} </:col>
   </.table> 
 </div>
+
+<.modal :if={@live_action == :show} id="company-modal" show on_cancel={JS.patch(~p"/")}>
+  <.live_component
+    module={ServiceDeskWeb.Live.OrganizationLive.ShowModal}
+    id={@company.id}
+    company={@company}
+    return-to={~p"/"}
+  />
+</.modal>

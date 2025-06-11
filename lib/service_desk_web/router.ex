@@ -21,6 +21,7 @@ defmodule ServiceDeskWeb.Router do
     pipe_through :browser
     
     live "/", HelpLive, :edit
+    live "/entreprise/:id/fiche", HelpLive, :show
   end
 
   # Other scopes may use custom stacks.
