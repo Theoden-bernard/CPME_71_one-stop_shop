@@ -30,11 +30,9 @@
       <.input field={@form[:siren]} type="text" label="Siren"/>
       <.input field={@form[:siret]} type="text" label="Siret"/>
       
-      <.live_file_input upload={@uploads.logo} />
-
-      <.input field={@form[:zone]} type="text" label="Zones"/>
-      <.input field={@form[:tag]} type="text" label="Tags"/>
-      
+      <div class="p-5">
+        <.live_file_input upload={@uploads.logo} />
+      </div>
     </div>
   </div>
   

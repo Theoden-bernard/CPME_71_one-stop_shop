@@ -2,9 +2,9 @@
   <div class="flex items-center justify-between border-b border-zinc-100 py-3 text-sm">
     <div class="flex items-center gap-4">
       <a href="/">
-        <div class="flex flex-row items-center">
+        <div class="flex flex-col lg:flex-row items-center">
           <img class="scale-75" src={~p"/images/logo_small.png"} />
-          <div class="flex flex-col text-2xl">
+          <div class="flex flex-col lg:text-left text-center text-2xl">
             <div class="text-[#0d4e62] text-5xl font-semibold">GUICHET UNIQUE</div>
             <div class="text-[#a81616] text-5xl font-semibold">NUMERIQUE</div>
           </div>
@@ -19,23 +19,24 @@
     {@inner_content}
   </div>
 </main>
-<footer class=" text-sm">
+<footer class="text-sm text-[#0d4e62] px-4 py-6">
 
-  <div class="flex md:flex-row justify-between items-center text-sm text-[#0d4e62]">
-    
-    <div class="w-1/3">
+  <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+    <div class="w-full md:w-1/3 text-center md:text-left">
+      <a href="#" class="hover:underline"></a>
     </div>
-    
-    <div class="flex justify-center items-center w-1/3 text-center md:text-left">
-      <a>
-        à propos-contact
-      </a>
+
+
+    <div class="w-full md:w-1/3 flex justify-center items-center text-center">
+      <a href="#" class="hover:underline">à propos - contact</a>
     </div>
-    
-    <div class="w-1/3 flex flex-row justify-end items-center">
-      proposé avec simplicité et bon sens par la
-      <img class="w-28" src={~p"/images/cpme71.png"} />
+
+    <div class="w-full md:w-1/3 flex justify-center md:justify-end items-center space-x-2 text-center md:text-right">
+      <span>proposé avec simplicité et bon sens par la</span>
+      <img class="w-28" src={~p"/images/cpme71.png"} alt="logo CPME71" />
     </div>
 
   </div>
+
 </footer>
+

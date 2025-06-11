@@ -8,9 +8,9 @@ defmodule ServiceDeskWeb.SimpleLoginLive do
     ~H"""
     <div class="mx-auto max-w-sm">
       <.header class="text-center">
-      Conncter vous a votre espace
+      Connecter vous à votre espace
       <:subtitle>
-      Pour vous connecter, saississez votre adresse email. Si vous etes connu...
+      Pour vous connecter, saississez votre adresse email. Si vous êtes connu...
         </:subtitle>
       </.header>
 
