@@ -10,7 +10,7 @@ defmodule ServiceDesk.Organizations.Organization do
         field :address_2, :string
         field :zip_code, :string
         field :city, :string
-        field :siren, :string
+        field :siren, :integer
         field :siret, :string
         field :baseline, :string
         field :activity, :string

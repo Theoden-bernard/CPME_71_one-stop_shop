@@ -19,18 +19,18 @@ defmodule ServiceDesk.Organizations do
         |> Repo.insert()
     end
 
-    def create_organization(%Accounts.User{} = user, attrs) do
-        user 
-	|> Ecto.build_assoc(:organization)
-        |> Organization.changeset(attrs)
-        |> Repo.insert()
-    end
-
     def create_organization(_attrs) do
         {:error,
             %Organization{}
             |> Changeset.change()
             |> Changeset.add_error(:user, "Organization can't be blanck")}
+    end
+
+    def create_organization(%Accounts.User{} = user, attrs) do
+        user 
+	|> Ecto.build_assoc(:organization)
+        |> Organization.changeset(attrs)
+        |> Repo.insert()
     end
     
     def update_organization(organization, attrs) do
