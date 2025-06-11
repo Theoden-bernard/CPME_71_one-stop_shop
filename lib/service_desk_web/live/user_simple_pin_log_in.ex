@@ -120,8 +120,16 @@ defmodule ServiceDeskWeb.SimplePinLoginLive do
     end
   end
 
-  def handle_event("validate", %{"pin" => _pin}, socket) do
-    {:noreply, socket}
+  def handle_event("validate", %{"_target" => ["pin", form]}, socket) do
+    map =
+      %{"one" => "pin_two",
+	"two" => "pin_three",
+	"three" => "pin_four",
+	"four" => "pin_five",
+	"five" => "pin_six"}
+    next = Map.get(map, form)
+    IO.inspect(next, label: "info")
+    {:noreply, push_event(socket, "focusElementById", %{id: next})}
   end
 
   def handle_event(any, params, socket) do 

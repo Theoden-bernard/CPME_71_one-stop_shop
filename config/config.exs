@@ -33,7 +33,6 @@ config :service_desk, ServiceDeskWeb.Endpoint,
 config :service_desk, ServiceDesk.Mailer, 
   adapter: Swoosh.Adapters.Local
 
-
 # Configure esbuild (the version is required)
 config :esbuild,
   version: "0.17.11",

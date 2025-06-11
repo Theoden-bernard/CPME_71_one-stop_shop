@@ -43,7 +43,6 @@ defmodule ServiceDeskWeb.SimpleLoginLive do
 	pin.pin
 	|> Integer.to_string()
 	|> String.pad_leading(6, "0")
-	|> IO.inspect()
 	
 	{:noreply, redirect(socket, to: ~p"/log_in/#{Integer.to_string(pin.puid)}")}
     end

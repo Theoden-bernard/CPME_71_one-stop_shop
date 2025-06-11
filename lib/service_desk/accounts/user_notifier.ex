@@ -8,7 +8,7 @@ defmodule ServiceDesk.Accounts.UserNotifier do
     email =
       new()
       |> to(recipient)
-      |> from({"ServiceDesk", "no-reply@colint.school"})
+      |> from({"ServiceDesk", "noreply@guichet-unique-numerique.fr"})
       |> subject(subject)
       |> text_body(body)
 
