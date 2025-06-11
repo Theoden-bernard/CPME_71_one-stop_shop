@@ -1,7 +1,7 @@
 defmodule ServiceDeskWeb.Live.OrganizationLive.ShowComponent do
-    use ServiceDesk, :live_component
+    use ServiceDeskWeb, :live_component
 
-    def update(organization, socket) do
+    def update(%{organization: organization}, socket) do
         socket
         |> assign(:organization, organization)
         

@@ -17,7 +17,7 @@ defmodule ServiceDeskWeb.HelpLive do
      |> assign(:message, message)}
   end
 
-  def handle_params(%{"id" => id}, _, socket} do
+  def handle_params(%{"id" => id}, _, socket) do
     organization = Organizations.get_organization!(id)
     {:noreply,
      socket
@@ -25,6 +25,10 @@ defmodule ServiceDeskWeb.HelpLive do
      |> assign(:organization, organization)}
   end
   
+  def handle_params(_, _, socket) do
+    {:noreply, socket}
+  end
+
   def handle_event(_, %{"message" => params}, socket) do
     case Messages.change_message(socket.assigns.message, params) do
       changeset when changeset.valid? ->

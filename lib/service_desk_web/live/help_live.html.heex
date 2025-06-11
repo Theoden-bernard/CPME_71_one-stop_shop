@@ -48,17 +48,17 @@
   <.table
     id="organization"
     rows={@organizations}
-    row_click=fn organization} -> JS.navigate(~p"/entreprise/#{company}/show") end}
+    row_click={fn organization -> JS.navigate(~p"/entreprise/#{organization}/fiche") end}
     >
       <:col :let={organization} label="Name"> {organization.name} </:col>
   </.table> 
 </div>
 
-<.modal :if={@live_action == :show} id="company-modal" show on_cancel={JS.patch(~p"/")}>
+<.modal :if={@live_action == :show} id="organization-modal" show on_cancel={JS.patch(~p"/")}>
   <.live_component
-    module={ServiceDeskWeb.Live.OrganizationLive.ShowModal}
-    id={@company.id}
-    company={@company}
+    module={ServiceDeskWeb.Live.OrganizationLive.ShowComponent}
+    id={@organization.id}
+    organization={@organization}
     return-to={~p"/"}
   />
 </.modal>
