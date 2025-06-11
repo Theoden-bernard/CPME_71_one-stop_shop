@@ -2,6 +2,7 @@ defmodule ServiceDesk.KeywordSearch do
   def keywords?(text, keywords) do
     text
     |> search_keywords(keywords)
+    |> dbg()
     |> Enum.find(fn
       %{match_type: match} when match in [:exact, :very_high] -> true
       _ -> false
@@ -104,9 +105,10 @@ defmodule ServiceDesk.KeywordSearch do
   defp get_match_type(similarity) do
     cond do
       similarity == 1.0 -> :exact
-      similarity >= 0.9 -> :very_high
-      similarity >= 0.8 -> :high
-      similarity >= 0.7 -> :medium
+      similarity >= 0.85 -> :very_high
+      similarity >= 0.75 -> :high
+      similarity >= 0.65
+       -> :medium
       true -> :low
     end
   end

@@ -2,6 +2,8 @@ defmodule ServiceDesk.Tags do
     import Ecto.Query, warn: false
     alias ServiceDesk.Repo
     alias ServiceDesk.Tags.Tag
+    alias ServiceDesk.Organizations.Organization
+    alias Ecto.Changeset
 
     def get_tag!(id), 
         do: Repo.get!(Tag, id)
@@ -28,4 +30,13 @@ defmodule ServiceDesk.Tags do
 
     def to_keywords(tags),
       do: Enum.map(tags, &(&1.name))
+
+
+    def add_tag_to_organization(%Tag{} = tag, %Organization{} = organization) do
+        organization = Repo.preload(organization, :tags)
+        tags = Map.get(organization, :tags)
+        organization_changeset = Ecto.Changeset.change(organization)
+        Changeset.put_assoc(organization_changeset, :tags, [tag | tags])
+        |> Repo.update()        
+    end
 end
