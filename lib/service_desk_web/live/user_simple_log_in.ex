@@ -17,7 +17,15 @@ defmodule ServiceDeskWeb.SimpleLoginLive do
       <.simple_form for={@form} id="login_form" phx-update="ignore" phx-submit="send" phx-debounce="1000" >
         <.input field={@form[:email]} type="email" label="Email" required />
         <:actions>
-          <.button> <.icon name="hero-arrow-long-right" /></.button>
+
+          <button
+            class={[
+              "phx-submit-loading:opacity-75 rounded-lg bg-[#0d4e62] hover:bg-[#a81616] py-2 px-24",
+              "text-sm font-semibold leading-6 text-white active:text-white/80"
+            ]}
+          >
+            <.icon name="hero-arrow-long-right"/>
+          </button>
         </:actions>
       </.simple_form>
     </div>
