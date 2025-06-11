@@ -96,14 +96,12 @@ defmodule ServiceDeskWeb.SimplePinLoginLive do
      temporary_assigns: [form: form]}
   end
 
-  def handle_event("validate", %{"pin" =>
-				  %{"one" => one,
+  def handle_event("validate", %{"one" => one,
 				    "two" => two,
 				    "three" => three,
 				    "four" => four,
 				    "five" => five,
-				    "six" => six}
-				}, socket) when
+				    "six" => six}, socket) when
   is_pin(one) and is_pin(two) and is_pin(three) and is_pin(four) and is_pin(five) and is_pin(six) do
     pin_code =
       [one, two, three, four, five, six]
@@ -120,22 +118,15 @@ defmodule ServiceDeskWeb.SimplePinLoginLive do
     end
   end
 
-  def handle_event("validate", %{"_target" => ["pin", form]}, socket) do
+  def handle_event("validate", %{"_target" => [form]}, socket) do
     map =
-      %{"one" => "pin_two",
-	"two" => "pin_three",
-	"three" => "pin_four",
-	"four" => "pin_five",
-	"five" => "pin_six"}
+      %{"one" => "two",
+	"two" => "three",
+	"three" => "four",
+	"four" => "five",
+	"five" => "six"}
+    
     next = Map.get(map, form)
-    IO.inspect(next, label: "info")
     {:noreply, push_event(socket, "focusElementById", %{id: next})}
   end
-
-  def handle_event(any, params, socket) do 
-    IO.inspect(any)
-    IO.inspect(params)
-    {:noreply , socket}
-  end
-
 end

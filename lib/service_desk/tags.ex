@@ -8,6 +8,12 @@ defmodule ServiceDesk.Tags do
     def get_tag!(id), 
         do: Repo.get!(Tag, id)
 
+    def get_tag_by_name(name), 
+        do: Repo.get_by(Tag, name: name)
+
+    def get_tag_by_name!(name), 
+        do: Repo.get_by!(Tag, name: name)
+
     def list_tags do
         Repo.all(Tag)
     end

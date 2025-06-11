@@ -19,6 +19,13 @@ defmodule ServiceDesk.Organizations do
         |> Repo.insert()
     end
 
+    def create_organization(%Accounts.User{} = user, attrs) do
+        user 
+	|> Ecto.build_assoc(:organization)
+        |> Organization.changeset(attrs)
+        |> Repo.insert()
+    end
+
     def create_organization(_attrs) do
         {:error,
             %Organization{}
