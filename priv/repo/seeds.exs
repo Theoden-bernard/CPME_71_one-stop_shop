@@ -77,7 +77,7 @@ csv_data
    case %Accounts.User{}
    |> Accounts.User.registration_changeset(line)
    |> ServiceDesk.Repo.insert() do
-     {:error, user} ->
+     {:error, _} ->
        Accounts.get_user_by_email(line.email)
      {:ok, user} -> user
    end
