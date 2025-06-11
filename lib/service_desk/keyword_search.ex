@@ -107,7 +107,8 @@ defmodule ServiceDesk.KeywordSearch do
       similarity == 1.0 -> :exact
       similarity >= 0.85 -> :very_high
       similarity >= 0.75 -> :high
-      similarity >= 0.65 -> :medium
+      similarity >= 0.65
+       -> :medium
       true -> :low
     end
   end
