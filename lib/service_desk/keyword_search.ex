@@ -2,7 +2,6 @@ defmodule ServiceDesk.KeywordSearch do
   def keywords?(text, keywords) do
     text
     |> search_keywords(keywords)
-    |> dbg()
     |> Enum.find(fn
       %{match_type: match} when match in [:exact, :very_high] -> true
       _ -> false

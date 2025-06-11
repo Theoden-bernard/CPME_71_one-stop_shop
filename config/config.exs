@@ -30,7 +30,7 @@ config :service_desk, ServiceDeskWeb.Endpoint,
 # For production it's recommended to configure a different adapter
 # at the `config/runtime.exs`.
 
-config :service_desk, ServiceDesk.Mailer, 
+config :service_desk, ServiceDesk.Mailer,
   adapter: Swoosh.Adapters.Local
 
 # Configure esbuild (the version is required)
@@ -62,6 +62,9 @@ config :logger, :console,
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
+
+# Configure gettext
+config :service_desk, ServiceDeskWeb.Gettext, default_locale: "fr"
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
