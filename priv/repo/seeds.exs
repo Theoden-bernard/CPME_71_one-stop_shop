@@ -25,15 +25,12 @@ defmodule Work do
   end
 
   def add_siren(line) do
-    case Integer.parse(line.siren) do
-      :error -> Map.put(line, :siren, 0)
-      {siren, _} -> Map.put(line, :siren, siren)
-    end
+    line
   end
 
   def maybe_split(list, char) when is_list(list),
     do: Enum.map(list, &maybe_split(&1, char))
-  
+
   def maybe_split(string, char) do
     String.split(string, char)
     |> Enum.map(&String.trim(&1))
